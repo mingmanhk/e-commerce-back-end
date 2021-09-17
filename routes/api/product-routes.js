@@ -48,12 +48,14 @@ router.post("/", async (req, res) => {
       stock: req.body.stock,
       category_id: req.body.category_id,
     });
-    if (req.body.tag_id.length > 0 && !(req.body.tag_id == undefined)) {
-      const ProductTagData = await ProductTag.bulkCreate(
-        req.body.tag_id.map((id) => {
-          return { product_id: ProductData.id, tag_id: id };
-        })
-      );
+    if (!(req.body.tag_id == undefined)) {
+      if (req.body.tag_id.length > 0) {
+        const ProductTagData = await ProductTag.bulkCreate(
+          req.body.tag_id.map((id) => {
+            return { product_id: ProductData.id, tag_id: id };
+          })
+        );
+      }
     }
     res.status(200).json(ProductData);
   } catch (err) {
@@ -80,7 +82,7 @@ router.put("/:id", async (req, res) => {
     )
       .then(
         // drop old product tag
-        async function dropproducttag() {
+        async function drop_product_tag() {
           const ProductTags = await ProductTag.destroy({
             where: {
               product_id: req.params.id,
@@ -90,7 +92,7 @@ router.put("/:id", async (req, res) => {
       )
       .then(
         // create new product tag
-        async function createproducttag() {
+        async function create_product_tag() {
           if (req.body.tag_id.length > 0 && !(req.body.tag_id == undefined)) {
             // Create new tag
             const ProductTagData = await ProductTag.bulkCreate(
@@ -100,7 +102,7 @@ router.put("/:id", async (req, res) => {
             );
           }
         }
-    );
+      );
     console.log(ProductData);
     res.json(ProductData);
   } catch (err) {
@@ -117,7 +119,7 @@ router.delete("/:id", async (req, res) => {
       },
     }).then(
       // drop old product tag
-      async function dropproducttag() {
+      async function drop_product_tag() {
         const ProductTags = await ProductTag.destroy({
           where: {
             product_id: req.params.id,

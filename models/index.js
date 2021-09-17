@@ -8,8 +8,7 @@ Product.belongsTo(Category, {
 });
 
 Category.hasMany(Product, {
-  foreignKey: "id",
-  onDelete: "SET NULL",
+  foreignKey: "category_id",
 });
 
 Product.belongsToMany(Tag, {
