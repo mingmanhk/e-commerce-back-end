@@ -48,12 +48,14 @@ router.post("/", async (req, res) => {
       stock: req.body.stock,
       category_id: req.body.category_id,
     });
-    const ProductTagData = await ProductTag.bulkCreate(
-      req.body.tag_id.map((id) => {
-        return { product_id: ProductData.id, tag_id: id };
-      })
-    );
-    res.status(200).json("Update successfully!");
+    if (req.body.tag_id.length > 0 && !(req.body.tag_id == undefined)) {
+      const ProductTagData = await ProductTag.bulkCreate(
+        req.body.tag_id.map((id) => {
+          return { product_id: ProductData.id, tag_id: id };
+        })
+      );
+    }
+    res.status(200).json(ProductData);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -89,14 +91,17 @@ router.put("/:id", async (req, res) => {
       .then(
         // create new product tag
         async function createproducttag() {
-          // Create new tag
-          const ProductTagData = await ProductTag.bulkCreate(
-            req.body.tag_id.map((id) => {
-              return { product_id: req.params.id, tag_id: id };
-            })
-          );
+          if (req.body.tag_id.length > 0 && !(req.body.tag_id == undefined)) {
+            // Create new tag
+            const ProductTagData = await ProductTag.bulkCreate(
+              req.body.tag_id.map((id) => {
+                return { product_id: req.params.id, tag_id: id };
+              })
+            );
+          }
         }
-      );
+    );
+    console.log(ProductData);
     res.json(ProductData);
   } catch (err) {
     res.status(500).json(err);
