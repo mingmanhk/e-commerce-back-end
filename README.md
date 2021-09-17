@@ -45,7 +45,7 @@ Tag
    3. Open Insomnia application
    4. using api route /api/products, /api/categories and /api/tags to interact with backend database
    
-   <img src="./src/test.gif"/>
+   <img src="./src/test.jpg"/>
    
 ## Credits
 Victor Lam
