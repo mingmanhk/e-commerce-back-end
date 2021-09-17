@@ -42,9 +42,10 @@ Tag
 ## Usage
    1. Open terminal
    2. Run 'npm start'
-   3. Select option all questions
+   3. Open Insomnia application
+   4. using api route /api/products, /api/categories and /api/tags to interact with backend database
    
-   <img src="./src/usage_latest.gif"/>
+   <img src="./src/test.gif"/>
    
 ## Credits
 Victor Lam
